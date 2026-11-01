@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Designaciones en el Estado peruano</title>
+  <meta name="description" content="¿La alta rotación de funcionarios de confianza renueva el elenco o hace circular a las mismas personas? Dashboard con 27.183 normas de El Peruano, nov-2022 a oct-2026.">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="portada contenedor">
+    <p class="antetitulo">Tarea 3 · Python Intermedio (D2CML) · Datos abiertos del Diario Oficial El Peruano</p>
+    <h1>¿Cambia todo para que nada cambie?<br>Designaciones de funcionarios en el Estado peruano, 2022-2026</h1>
+    <p class="pregunta"><strong>Pregunta:</strong> la alta rotación de funcionarios de confianza, ¿renueva el elenco del Estado
+      o hace circular a las mismas personas entre cargos, instituciones y gobiernos?</p>
+    <p class="descripcion">Cada designación, conclusión o renuncia de un funcionario se publica en el diario oficial.
+      Leímos con código todas las normas de personal de cuatro años —con cinco presidentes— y reconstruimos quién
+      ocupa cada puesto, cuánto dura, con quién se mueve y qué tan rápido cambia el equipo cuando llega un nuevo ministro.</p>
+    <ul class="fichas" id="fichas"></ul>
+    <div class="heroe" id="heroe"></div>
+  </header>
+
+  <nav class="filtros" aria-label="Filtros">
+    <div class="contenedor">
+      <div class="filtro"><label for="f-gobierno">Gobierno</label><select id="f-gobierno"></select></div>
+      <div class="filtro"><label for="f-ministerio">Ministerio o entidad</label><select id="f-ministerio"></select></div>
+      <div class="filtro"><label for="f-nivel">Nivel del cargo</label>
+        <select id="f-nivel">
+          <option value="todos">Todos los niveles</option>
+          <option value="alta">Alta dirección (ministro, viceministro, secretario general, titular)</option>
+          <option value="j4">Directores generales y jefes de órgano</option>
+          <option value="j5">Asesores y apoyo de alta dirección</option>
+          <option value="j67">Jefes de unidad y subunidad</option>
+          <option value="sn">Sin nivel (directorios, subprefectos, diplomáticos)</option>
+        </select></div>
+      <div class="acciones">
+        <button type="button" id="f-limpiar">Quitar filtros</button>
+        <button type="button" id="f-tema" aria-label="Cambiar entre modo claro y oscuro">◐ Tema</button>
+      </div>
+      <p class="nota-filtros">Los filtros cambian los indicadores y los gráficos de toda la página (cada gráfico indica cuáles le aplican).</p>
+    </div>
+  </nav>
+
+  <main class="contenedor">
+    <section class="kpis" id="kpis" aria-label="Indicadores principales"></section>
+
+    <section class="bloque" id="s-continuidad">
+      <h2>1. Cambia el gobierno, pero la mitad del elenco ya estaba en el Estado</h2>
+      <p class="bajada">De las personas que cada gobierno nuevo designó en sus primeros seis meses (o hasta el siguiente
+        cambio), ¿cuántas ya habían ocupado un cargo antes en esta base? En los cargos altos la proporción es mayor.</p>
+      <div class="rejilla">
+        <figure class="tarjeta" data-grafico="continuidad"></figure>
+        <figure class="tarjeta" data-grafico="serie"></figure>
+      </div>
+    </section>
+
+    <section class="bloque" id="s-armado">
+      <h2>2. Lo primero que asegura un ministro es el control administrativo</h2>
+      <p class="bajada">Desde el día en que llega cada ministro (168 llegadas en cuatro años), días hasta la primera
+        designación en cada tipo de oficina de la sede central. El secretario general cambia antes que las áreas de política.</p>
+      <div class="rejilla">
+        <figure class="tarjeta" data-grafico="armado"></figure>
+        <figure class="tarjeta" data-grafico="rotacion"></figure>
+      </div>
+    </section>
+
+    <section class="bloque" id="s-puestos">
+      <h2>Puestos que cambian una y otra vez, y cuánto duran sus titulares</h2>
+      <p class="bajada">Un puesto con muchos titulares en poco tiempo es un puesto disputado. La duración se calcula con la
+        regla de sucesión: si se designa a otra persona en el mismo puesto, la anterior ya salió.</p>
+      <div class="rejilla">
+        <figure class="tarjeta" data-grafico="puestos"></figure>
+        <figure class="tarjeta" data-grafico="supervivencia"></figure>
+      </div>
+    </section>
+
+    <section class="bloque" id="s-trayectorias">
+      <h2>Personas: quién rota más y quién permanece más</h2>
+      <p class="bajada">Dos extremos del mismo sistema: quienes pasan por muchos cargos en poco tiempo y quienes se quedan
+        años en el mismo puesto mientras cambian los ministros. Cada fila es una persona (código anónimo) y cada barra, un
+        cargo: desde su designación hasta su salida, la llegada de un sucesor o su siguiente cargo (o hasta octubre de 2026
+        si sigue).</p>
+      <figure class="tarjeta" data-grafico="trayectorias"></figure>
+    </section>
+
+    <section class="bloque" id="s-red">
+      <h2>3. El "desorden" tiene estructura: gente que sigue a su jefe</h2>
+      <p class="bajada">Cuando alguien asume un cargo de decisión (de ministro a director), llegan detrás de él personas que
+        ya lo habían acompañado en otra institución. Cada punto es una persona (código anónimo) y cada flecha va del jefe a
+        quien llegó después que él, en menos de seis meses, en <b>dos o más</b> instituciones distintas: una sola vez puede ser
+        casualidad o personal "impuesto"; repetida, es un patrón. <b>Formas:</b> estrella = un jefe con su gente;
+        cadena = quien siguió a un jefe luego lleva a la suya; punto verde = puente: alguien que siguió a jefes de equipos distintos y los conecta.
+        <a href="#como-leer-la-red" class="enlace-ayuda">¿Cómo leer esta red? Ver la explicación paso a paso →</a></p>
+      <div class="red-cifras" id="red-cifras"></div>
+      <figure class="tarjeta" data-grafico="red"></figure>
+    </section>
+
+    <section class="bloque" id="s-territorio">
+      <h2>Mujeres por nivel y el recambio en el territorio</h2>
+      <p class="bajada">Cuanto más alto el cargo, menos mujeres. Y los subprefectos —representantes del Ejecutivo en
+        provincias y distritos— se cambian en olas: la mayor, tras el cambio de gobierno de diciembre de 2022. Para comparar
+        departamentos de distinto tamaño, el mapa divide las designaciones entre el número de subprefecturas (un puesto por
+        distrito, más la prefectura regional; distritos según el UBIGEO del INEI).</p>
+      <div class="rejilla">
+        <figure class="tarjeta" data-grafico="genero"></figure>
+        <figure class="tarjeta" data-grafico="mapa"></figure>
+      </div>
+    </section>
+
+    <section class="bloque" id="s-hallazgos">
+      <h2>Tres hallazgos</h2>
+      <div class="hallazgos" id="hallazgos"></div>
+    </section>
+
+    <section class="bloque texto-largo" id="s-metodo">
+      <h2>Metodología, fuentes y limitaciones</h2>
+      <h3>Fuentes</h3>
+      <ul>
+        <li><a href="https://diariooficial.elperuano.pe/Normas/designaciones">Índice de designaciones del Diario Oficial El Peruano</a>
+          y <a href="https://diariooficial.elperuano.pe/Normas">listado general de normas legales</a> (para recuperar resoluciones
+          supremas que el índice omite, como las de ministros y embajadores).</li>
+        <li>El PDF oficial de cada norma (enlaces <code>epdoc2.elperuano.pe</code>), de donde se leen la persona, el cargo, las
+          fechas y quién firma.</li>
+        <li>Reglamentos de Organización y Funciones (ROF) de MIDIS e Interior y los Lineamientos de Organización del Estado
+          (D.S. 054-2018-PCM), para validar la ubicación de los cargos.</li>
+        <li>Mapa de departamentos: <a href="https://github.com/juaneladio/peru-geojson">juaneladio/peru-geojson</a> (licencia MPL-2.0).</li>
+        <li>Distritos y provincias por departamento (para dividir las designaciones de subprefectos entre el número de subprefecturas): UBIGEO de INEI y RENIEC compilado en <a href="https://github.com/jmcastagnetto/ubigeo-peru-aumentado">jmcastagnetto/ubigeo-peru-aumentado</a> (licencia MIT, actualizado en 2021).</li>
+      </ul>
+      <h3>Método</h3>
+      <ul>
+        <li>Se descargaron con Python 27.183 normas de personal (nov-2022 a oct-2026) y se extrajeron 46.892 movimientos
+          (una persona en una designación, conclusión, renuncia o encargo) con reglas de texto; 95,4 % de las normas se
+          leyó completa.</li>
+        <li>El <strong>análisis principal</strong> reúne cargos de confianza, directorios, subprefectos, diplomáticos y
+          procuradores (28.175 movimientos de 16.488 personas). Fiscales, jueces, militares, control institucional y
+          fedatarios quedan aparte por ser carrera o funciones administrativas.</li>
+        <li>Los cambios de gobierno se detectan en los propios datos: el Presidente firma las resoluciones supremas y el
+          cambio de firmante marca el cambio de gobierno.</li>
+        <li><strong>Regla de sucesión:</strong> si se designa a otra persona en el mismo puesto, la anterior terminó, aunque su
+          cese no se haya publicado en El Peruano (salvo encargos por vacaciones y cargos con varios ocupantes, como asesores).</li>
+        <li><strong>Red:</strong> un equipo son las personas designadas en una entidad durante la gestión de un mismo jefe;
+          dos personas se conectan si pasan juntas de un equipo a otra entidad en menos de 180 días. Los resultados se
+          comparan con lo que se esperaría por azar.</li>
+        <li>El nivel del cargo (J1-J7) se deduce del nombre del cargo y su oficina, y se validó con el ROF de MIDIS e Interior
+          (95 % y 99 % de coincidencia).</li>
+      </ul>
+      <h3>Limitaciones</h3>
+      <ul>
+        <li>Solo se ven las designaciones publicadas en El Peruano: no los contratos CAS ni las órdenes de servicio.</li>
+        <li>La ventana es de cuatro años: quien parece "nuevo" al inicio pudo tener cargos antes (por eso el dato del
+          gobierno de diciembre de 2022 no es comparable).</li>
+        <li>Las personas se identifican por su nombre (pocas normas traen DNI): hay riesgo de homónimos y de variantes.</li>
+        <li>Los datos muestran quién se mueve con quién, no por qué: no distinguen un equipo técnico cohesionado de una red
+          clientelar. Por eso las personas aparecen con códigos anónimos.</li>
+        <li>El sexo se toma de la norma ("señor/señora") o, si falta, del nombre de pila.</li>
+      </ul>
+      <h3>Código y uso de inteligencia artificial</h3>
+      <p>Código, documentación y reglas de método en el
+        <a href="https://github.com/diegosimemirror/designaciones/tree/main/tarea_3">repositorio del proyecto</a>.
+        El proyecto se desarrolló con apoyo de Claude Code (Anthropic) para escribir y revisar el código y la documentación;
+        las decisiones de alcance y la verificación contra los PDF oficiales fueron del autor.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="contenedor">Fuente: Diario Oficial El Peruano (normas publicadas del 01/11/2022 al 29/10/2026).
+      Elaboración propia. Las personas se muestran con códigos anónimos. <span id="generado"></span></div>
+  </footer>
+
+  <div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
+
+  <!-- Guía para leer la red de seguimiento: se abre con el botón del gráfico, con el enlace de la sección
+       o directamente con index.html#como-leer-la-red. Los diagramas los dibuja app.js con los colores del sitio. -->
+  <dialog id="como-leer-la-red" class="ayuda" aria-labelledby="ayuda-titulo">
+    <div class="ayuda-cabecera">
+      <div>
+        <p class="ayuda-antetitulo">Guía de lectura · 4 pasos</p>
+        <h2 id="ayuda-titulo">Cómo leer la red de seguimiento</h2>
+      </div>
+      <button type="button" class="ayuda-cerrar" data-cerrar-ayuda aria-label="Cerrar la guía">✕</button>
+    </div>
+    <div class="ayuda-pestanas" role="tablist" aria-label="Pasos de la guía">
+      <button type="button" role="tab" data-paso="1" aria-controls="ayuda-paso-1"><span>1</span>Cómo se lee</button>
+      <button type="button" role="tab" data-paso="2" aria-controls="ayuda-paso-2"><span>2</span>Las formas</button>
+      <button type="button" role="tab" data-paso="3" aria-controls="ayuda-paso-3"><span>3</span>Cómo se construyó</button>
+      <button type="button" role="tab" data-paso="4" aria-controls="ayuda-paso-4"><span>4</span>Un caso real</button>
+    </div>
+
+    <section class="ayuda-paso" id="ayuda-paso-1" data-paso="1" role="tabpanel" aria-label="Cómo se lee">
+      <div class="ayuda-figura" data-figura="leer"></div>
+      <div class="ayuda-texto">
+        <h3>Una flecha = alguien que llegó detrás del mismo jefe, más de una vez</h3>
+        <p>Cada punto es una persona (código anónimo). La flecha va de un jefe a quien llegó a la misma institución en los
+          <b>seis meses siguientes</b>, y solo se dibuja si eso se repitió en <b>dos o más instituciones</b>.</p>
+        <p>Una sola vez puede ser casualidad o personal que el jefe encontró al llegar; repetido, es un patrón.</p>
+        <ul class="ayuda-claves">
+          <li><i class="k-jefe"></i><span><b>Jefe:</b> ministro, viceministro, secretario general o director. Su tamaño dice cuántas personas llegan detrás de él.</span></li>
+          <li><i class="k-acomp"></i><span><b>Acompañante:</b> llegó a la institución después del jefe.</span></li>
+          <li><i class="k-linea"></i><span>Lo siguió en 2 instituciones; <b>más gruesa</b>, en 3 o más.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="ayuda-paso" id="ayuda-paso-2" data-paso="2" role="tabpanel" aria-label="Las formas" hidden>
+      <div class="ayuda-figura" data-figura="formas"></div>
+      <div class="ayuda-texto">
+        <h3>Tres formas que se repiten</h3>
+        <p>Un grupo <b>no es un ministerio</b>: reúne a personas que se siguen entre sí, aunque pasen por varias instituciones.
+          Cada grupo se dibuja aparte; la distancia entre grupos no significa nada.</p>
+        <ul class="ayuda-lista">
+          <li><b>Estrella:</b> un jefe con su gente. A donde va, llegan los mismos.</li>
+          <li><b>Cadena:</b> quien siguió a un jefe, después lleva a su propia gente.</li>
+          <li><b>Puente</b> (punto verde): siguió a jefes de equipos distintos y los conecta.</li>
+        </ul>
+        <p class="ayuda-pista">Al hacer clic en un punto de la red se resalta su grupo y aparecen las pocas flechas que lo unen con otros.</p>
+      </div>
+    </section>
+
+    <section class="ayuda-paso" id="ayuda-paso-3" data-paso="3" role="tabpanel" aria-label="Cómo se construyó" hidden>
+      <div class="ayuda-figura">
+        <ol class="ayuda-flujo">
+          <li><b><span data-meta="normas"></span> normas</b> de El Peruano (noviembre de 2022 a octubre de 2026), leídas con Python.</li>
+          <li><b><span data-meta="principal"></span> movimientos</b> de <span data-meta="personas_principal"></span> personas: quién, qué cargo, dónde, cuándo y quién firmó.</li>
+          <li><b>Llegada del jefe:</b> asume un cargo de decisión o empieza a firmar designaciones en esa institución.</li>
+          <li><b>Acompañantes:</b> personas nuevas en esa institución que llegan en los seis meses siguientes.</li>
+          <li><b>Patrón:</b> solo cuenta si se repite con el mismo jefe en dos o más instituciones.</li>
+        </ol>
+      </div>
+      <div class="ayuda-texto">
+        <h3>¿Puede ser casualidad?</h3>
+        <p>Para saberlo se sortea quién llega a cada institución, con las mismas fechas y cantidades (10 sorteos), y se
+          cuentan las parejas jefe–acompañante que se repiten en <b>3 o más instituciones</b>:</p>
+        <div class="ayuda-azar" data-figura="azar"></div>
+        <p>En <b><span data-cifra="parejas_firmadas_por_el_jefe"></span></b> parejas, el propio jefe firmó la designación de su
+          acompañante.</p>
+        <p class="ayuda-pista">Muestra patrones en documentos públicos, no intenciones ni irregularidades.</p>
+      </div>
+    </section>
+
+    <section class="ayuda-paso" id="ayuda-paso-4" data-paso="4" role="tabpanel" aria-label="Un caso real" hidden>
+      <div class="ayuda-figura" data-figura="caso"></div>
+      <div class="ayuda-texto">
+        <h3>El ministro B: tres ministerios, el mismo equipo</h3>
+        <ul class="ayuda-lista">
+          <li><b>20 personas</b> llegaron detrás de él en dos o más de sus ministerios (2023-2025); él firmó 19 de esas designaciones.</li>
+          <li>En el tercero, <b>en 20 días</b> ya estaban gabinete, secretaría general, jurídica y administración: primero el control administrativo.</li>
+          <li>En 2026, ya sin él, su secretaria general asume un programa nacional y <b>tres personas del núcleo</b> llegan detrás de ella. Por eso en la red hay otro punto naranja con sus propias flechas: una cadena.</li>
+        </ul>
+        <p class="ayuda-pista">Llevar gente de confianza a cargos de confianza es legal y habitual. Lo notable es que el núcleo persiste.</p>
+      </div>
+    </section>
+
+    <div class="ayuda-pie">
+      <button type="button" class="ayuda-nav" data-anterior>← Anterior</button>
+      <span class="ayuda-progreso" aria-live="polite"></span>
+      <button type="button" class="ayuda-nav principal" data-siguiente>Siguiente →</button>
+    </div>
+  </dialog>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>

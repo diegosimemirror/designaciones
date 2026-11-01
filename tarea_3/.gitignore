@@ -1,0 +1,12 @@
+# Archivos que NO se suben al repositorio público
+# - datos crudos y procesados: contienen los nombres completos (al final se decide cómo publicar una versión anonimizada)
+datos/crudos/
+datos/procesados/
+# - herramientas privadas (por ejemplo, la lista de reemplazos de nombres para anonimizar al final)
+datos/privado/
+# - archivos temporales de Python
+__pycache__/
+*.pyc
+
+# Grabación cruda de la voz del autor (dato personal): solo se publica el video final
+reel/voz/

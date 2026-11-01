@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Cómo leer la red</title>
+<!--
+  Infografía para el reel (3 láminas 9:16 de 1080 x 1920). Sin nombres de personas.
+  Las cifras están en DATOS (abajo) para actualizarlas en un solo lugar.
+  Para exportar las láminas como PNG: python reel/infografia_red/exportar_laminas.py
+-->
+<style>
+  :root {
+    --page: #0d0d0d; --surface: #1a1a19; --t1: #f0efec; --t2: #c3c2b7; --t3: #898781; --linea: #c3c2b7;
+    --jefe: #d95926; --persona: #3987e5; --puente: #199e70; --azar: #6f6e69;
+    --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--page); color: var(--t1); font-family: var(--font); width: 1080px; }
+  /* Márgenes seguros del reel: arriba 190 px, abajo 340 px (texto y botones de la app), derecha 120 px */
+  .lamina { width: 1080px; height: 1920px; padding: 190px 120px 340px 80px; display: flex; flex-direction: column;
+            gap: 22px; overflow: hidden; }
+  .antetitulo { font-size: 32px; font-weight: 600; letter-spacing: .03em; color: var(--t3); }
+  h1 { font-size: 78px; line-height: 1.04; font-weight: 800; letter-spacing: -.01em; }
+  h2 { font-size: 50px; line-height: 1.1; font-weight: 750; margin-top: 10px; }
+  p { font-size: 38px; line-height: 1.32; color: var(--t2); }
+  b { color: var(--t1); font-weight: 700; }
+  svg { display: block; overflow: visible; }
+  svg text { font-family: var(--font); }
+  .leyenda { display: grid; gap: 10px; }
+  .leyenda div { display: grid; grid-template-columns: 96px 1fr; align-items: center; font-size: 36px; line-height: 1.25; color: var(--t2); }
+  .caja { background: var(--surface); border-radius: 18px; padding: 30px 34px; }
+  .caja p { font-size: 36px; }
+  .forma { display: grid; grid-template-columns: 280px 1fr; align-items: center; gap: 30px; }
+  .forma p { font-size: 37px; }
+  .pasos { list-style: none; display: grid; gap: 16px; }
+  #l3 h1 { font-size: 62px; }
+  .pasos li { display: grid; grid-template-columns: 70px 1fr; gap: 22px; align-items: start; font-size: 36px; line-height: 1.28; color: var(--t2); }
+  .pasos li span { width: 62px; height: 62px; border-radius: 50%; background: var(--surface); color: var(--t1);
+                   display: grid; place-items: center; font-weight: 800; font-size: 34px; }
+  .nota { font-size: 30px; color: var(--t3); line-height: 1.3; }
+</style>
+</head>
+<body>
+
+<!-- ============ LÁMINA 1: cómo se lee ============ -->
+<section class="lamina" id="l1">
+  <div class="antetitulo">1/3 · DESIGNACIONES DE EL PERUANO, 2022-2026</div>
+  <h1>Cómo leer la red</h1>
+  <p>Cada flecha dice: <b>esta persona llegó detrás de este jefe, y no una vez: en dos o más instituciones.</b></p>
+  <svg id="estrella" width="880" height="440" viewBox="0 0 880 440" role="img"
+       aria-label="Un jefe en el centro con ocho flechas hacia ocho personas que lo siguieron"></svg>
+  <div class="leyenda">
+    <div><svg width="80" height="56"><circle cx="34" cy="28" r="26" fill="var(--jefe)"/></svg><span><b>Jefe:</b> ministro, viceministro, secretario general o director</span></div>
+    <div><svg width="80" height="56"><circle cx="34" cy="28" r="16" fill="var(--persona)"/></svg><span><b>Persona</b> que llegó a la misma institución después que él (menos de 6 meses)</span></div>
+    <div><svg width="80" height="56" id="ley-fina"></svg><span>Lo siguió en <b>2</b> instituciones</span></div>
+    <div><svg width="80" height="56" id="ley-gruesa"></svg><span>Lo siguió en <b>3</b> instituciones</span></div>
+  </div>
+  <div class="caja"><p>Caso real, sin nombres: el jefe A pasó por <b>3 instituciones</b> del sector salud.
+    Estas <b>8 personas</b> llegaron detrás de él, y <b>él mismo firmó las 8 designaciones.</b></p></div>
+</section>
+
+<!-- ============ LÁMINA 2: qué significan las formas ============ -->
+<section class="lamina" id="l2">
+  <div class="antetitulo">2/3 · QUÉ SIGNIFICAN LAS FORMAS</div>
+  <h1>¿Por qué están agrupados?</h1>
+  <p>Un grupo es <b>un jefe y la gente que lo sigue</b>. No es el organigrama: es lo que se repite en las normas.</p>
+  <div class="forma"><svg id="f-estrella" width="280" height="230" viewBox="0 0 330 270" role="img" aria-label="Estrella"></svg>
+    <p><b>Estrella.</b> Un jefe con su gente: a donde va, llegan los mismos.</p></div>
+  <div class="forma"><svg id="f-cadena" width="280" height="230" viewBox="0 0 330 270" role="img" aria-label="Cadena"></svg>
+    <p><b>Cadena.</b> Quien siguió a un jefe, después lleva a su propia gente.</p></div>
+  <div class="forma"><svg id="f-puente" width="280" height="230" viewBox="0 0 330 270" role="img" aria-label="Puente"></svg>
+    <p><b>Puente.</b> Alguien que siguió a <b>jefes de equipos distintos</b> une dos grupos.</p></div>
+  <h2>¿Hay un punto especial?</h2>
+  <p>Sí, dos: <b>el centro de la estrella</b> (el jefe al que más siguen) y <b>el puente</b> (une grupos que no se tocarían).</p>
+</section>
+
+<!-- ============ LÁMINA 3: cómo se construyó ============ -->
+<section class="lamina" id="l3">
+  <div class="antetitulo">3/3 · CÓMO SE CONSTRUYÓ</div>
+  <h1 id="t3"></h1>
+  <ol class="pasos" id="pasos"></ol>
+  <h2>¿Puede ser casualidad?</h2>
+  <p id="barras-titulo"></p>
+  <svg id="barras" width="880" height="190" viewBox="0 0 880 190" role="img"></svg>
+  <p class="nota" id="azar-nota"></p>
+  <div class="caja"><p>Muestra <b>patrones</b> en documentos públicos, <b>no intenciones ni irregularidades.</b></p></div>
+</section>
+
+<script>
+  // ---------- Cifras (actualizar aquí) ----------
+  const DATOS = {
+    normas: "27.183", designaciones: "28.175", personas: "16.488", periodo: "nov-2022 a oct-2026",
+    parejas3: 41, parejas3_azar: 6, parejas2: 806, parejas2_azar: 364, firmadas: 310, sorteos: 10,
+  };
+
+  // ---------- Herramientas de dibujo (SVG) ----------
+  const NS = "http://www.w3.org/2000/svg";
+  const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  function el(tag, attrs, padre) {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (padre) padre.appendChild(e);
+    return e;
+  }
+  function puntas(svg) {  // dos puntas de flecha: normal y para la flecha gruesa
+    const defs = el("defs", {}, svg);
+    [["n", 18], ["g", 26]].forEach(([k, t]) => {
+      const m = el("marker", { id: `p${k}-${svg.id}`, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: t, markerHeight: t,
+        markerUnits: "userSpaceOnUse", orient: "auto" }, defs);
+      el("path", { d: "M0,0 L10,5 L0,10 z", fill: css("--linea") }, m);
+    });
+  }
+  function flecha(svg, a, b, gruesa) {  // de borde a borde, para que la punta no quede tapada por el punto
+    const dx = b.x - a.x, dy = b.y - a.y, L = Math.hypot(dx, dy), ux = dx / L, uy = dy / L;
+    el("line", { x1: a.x + ux * (a.r + 6), y1: a.y + uy * (a.r + 6), x2: b.x - ux * (b.r + 6), y2: b.y - uy * (b.r + 6),
+      stroke: css("--linea"), "stroke-width": gruesa ? 9 : 3, "stroke-linecap": "round", "marker-end": `url(#p${gruesa ? "g" : "n"}-${svg.id})` }, svg);
+  }
+  function punto(svg, p, color, texto, tam) {
+    el("circle", { cx: p.x, cy: p.y, r: p.r, fill: color, stroke: css("--page"), "stroke-width": 4 }, svg);
+    if (texto) {
+      const t = el("text", { x: p.x, y: p.y + tam * 0.36, "text-anchor": "middle", "font-size": tam, "font-weight": 800, fill: "#fff" }, svg);
+      t.textContent = texto;
+    }
+  }
+  function estrella(svg, cx, cy, R, n, rJ, rP, gruesas, texto, tam) {
+    const jefe = { x: cx, y: cy, r: rJ };
+    const gente = d3range(n).map((i) => {
+      const ang = -Math.PI / 2 + (2 * Math.PI * i) / n;
+      return { x: cx + R * Math.cos(ang), y: cy + R * Math.sin(ang), r: rP };
+    });
+    gente.forEach((p, i) => flecha(svg, jefe, p, gruesas.includes(i)));
+    gente.forEach((p) => punto(svg, p, css("--persona")));
+    punto(svg, jefe, css("--jefe"), texto, tam);
+    return gente;
+  }
+  const d3range = (n) => Array.from({ length: n }, (_, i) => i);
+
+  // ---------- Lámina 1: el caso real como ejemplo ----------
+  const s1 = document.getElementById("estrella"); puntas(s1);
+  const gente1 = estrella(s1, 440, 220, 185, 8, 62, 28, [1], "Jefe A", 32);
+  const g = gente1[1];
+  const etiqueta = el("text", { x: g.x + 44, y: g.y + 12, "font-size": 30, fill: css("--t2") }, s1);
+  etiqueta.textContent = "lo siguió a 3";
+  ["ley-fina", "ley-gruesa"].forEach((id, i) => {
+    const s = document.getElementById(id); puntas(s);
+    flecha(s, { x: 4, y: 28, r: 0 }, { x: 76, y: 28, r: 0 }, i === 1);
+  });
+
+  // ---------- Lámina 2: las tres formas (esquemas) ----------
+  const s2 = document.getElementById("f-estrella"); puntas(s2);
+  estrella(s2, 165, 135, 105, 6, 36, 18, [], "", 0);
+
+  const s3 = document.getElementById("f-cadena"); puntas(s3);
+  const A = { x: 36, y: 135, r: 30 }, B = { x: 160, y: 135, r: 30 };
+  const C = [{ x: 296, y: 45, r: 18 }, { x: 306, y: 135, r: 18 }, { x: 296, y: 225, r: 18 }];
+  flecha(s3, A, B); C.forEach((c) => flecha(s3, B, c));
+  C.forEach((c) => punto(s3, c, css("--persona")));
+  punto(s3, A, css("--jefe"), "A", 28); punto(s3, B, css("--jefe"), "B", 28);
+
+  const s4 = document.getElementById("f-puente"); puntas(s4);
+  const J1 = { x: 55, y: 80, r: 30 }, J2 = { x: 275, y: 80, r: 30 }, P = { x: 165, y: 175, r: 22 };
+  const g1 = [{ x: 25, y: 225, r: 17 }, { x: 105, y: 240, r: 17 }], g2 = [{ x: 225, y: 240, r: 17 }, { x: 305, y: 225, r: 17 }];
+  g1.forEach((p) => flecha(s4, J1, p)); g2.forEach((p) => flecha(s4, J2, p));
+  flecha(s4, J1, P); flecha(s4, J2, P);
+  [...g1, ...g2].forEach((p) => punto(s4, p, css("--persona")));
+  punto(s4, P, css("--puente"));
+  punto(s4, J1, css("--jefe")); punto(s4, J2, css("--jefe"));
+
+  // ---------- Lámina 3: pasos y comparación con el azar ----------
+  document.getElementById("t3").textContent = `De ${DATOS.normas} normas a una red`;
+  const pasos = [
+    `<b>${DATOS.normas} normas</b> de El Peruano (${DATOS.periodo}), descargadas y leídas con Python.`,
+    `<b>${DATOS.designaciones} designaciones</b> de ${DATOS.personas} personas: quién, qué cargo, dónde, cuándo y quién firmó.`,
+    `<b>Llegada del jefe:</b> asume un cargo de decisión o empieza a firmar designaciones.`,
+    `<b>Acompañantes:</b> personas nuevas en esa institución que llegan en los 6 meses siguientes.`,
+    `<b>Patrón:</b> solo cuenta si se repite con el mismo jefe en 2 o más instituciones.`,
+  ];
+  const ol = document.getElementById("pasos");
+  pasos.forEach((t, i) => { const li = document.createElement("li"); li.innerHTML = `<span>${i + 1}</span><div>${t}</div>`; ol.appendChild(li); });
+  document.getElementById("barras-titulo").innerHTML = "Parejas jefe–acompañante que se repiten en <b>3 o más</b> instituciones:";
+  const sb = document.getElementById("barras");
+  const max = DATOS.parejas3, ancho = 600, x0 = 200;
+  [["En los datos", DATOS.parejas3, css("--persona"), 10], ["Por azar", DATOS.parejas3_azar, css("--azar"), 105]].forEach(([nombre, v, color, y]) => {
+    const w = Math.max(8, (v / max) * ancho);
+    // barra con el extremo de datos redondeado (4 px) y anclada a la línea base
+    el("path", { d: `M${x0},${y} h${w - 4} a4,4 0 0 1 4,4 v${64} a4,4 0 0 1 -4,4 h${-(w - 4)} z`, fill: color }, sb);
+    const t1 = el("text", { x: 0, y: y + 47, "font-size": 34, fill: css("--t2") }, sb); t1.textContent = nombre;
+    const t2 = el("text", { x: x0 + w + 16, y: y + 49, "font-size": 44, "font-weight": 800, fill: css("--t1") }, sb); t2.textContent = v;
+  });
+  el("line", { x1: x0, y1: 0, x2: x0, y2: 190, stroke: css("--t3"), "stroke-width": 2 }, sb);
+  document.getElementById("azar-nota").innerHTML =
+    `Azar: se sorteó ${DATOS.sorteos} veces quién llega a cada institución, con las mismas fechas y cantidades.`;
+</script>
+</body>
+</html>

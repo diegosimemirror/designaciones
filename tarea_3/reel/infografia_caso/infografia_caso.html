@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Un equipo que sigue a su jefe</title>
+<!--
+  Infografía del caso del grupo 4 de la red de seguimiento (3 láminas 9:16 de 1080 x 1920). SIN NOMBRES:
+  "ministro B" y cargos. Fuente: datos/procesados/indicadores/seguimiento_parejas.csv y movimientos_analisis.csv
+  (fechas de efectividad o firma de cada designación; días contados desde la designación del ministro en el ministerio 3).
+  Exportar: python reel/infografia_red/exportar_laminas.py reel/infografia_caso/infografia_caso.html
+-->
+<style>
+  :root {
+    --page: #0d0d0d; --surface: #1a1a19; --t1: #f0efec; --t2: #c3c2b7; --t3: #898781; --linea: #c3c2b7;
+    --jefe: #d95926; --persona: #3987e5; --vacio: #383835;
+    --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--page); color: var(--t1); font-family: var(--font); width: 1080px; }
+  /* Márgenes seguros del reel: arriba 190 px, abajo 340 px, derecha 120 px */
+  .lamina { width: 1080px; height: 1920px; padding: 190px 120px 340px 80px; display: flex; flex-direction: column; gap: 22px; overflow: hidden; }
+  .antetitulo { font-size: 32px; font-weight: 600; letter-spacing: .03em; color: var(--t3); }
+  h1 { font-size: 72px; line-height: 1.04; font-weight: 800; letter-spacing: -.01em; }
+  p { font-size: 36px; line-height: 1.3; color: var(--t2); }
+  b { color: var(--t1); font-weight: 700; }
+  svg { display: block; overflow: visible; }
+  svg text { font-family: var(--font); }
+  .caja { background: var(--surface); border-radius: 18px; padding: 26px 32px; }
+  .caja p { font-size: 34px; }
+  .nota { font-size: 29px; color: var(--t3); line-height: 1.3; }
+  /* Matriz: filas = personas (por su cargo), columnas = ministerios */
+  .matriz { display: grid; grid-template-columns: 404px repeat(4, 119px); row-gap: 0; align-items: center; }
+  .matriz .cab { font-size: 26px; line-height: 1.15; color: var(--t2); text-align: center; padding-bottom: 12px; font-weight: 600; }
+  .matriz .cab.sin { color: var(--jefe); }
+  .matriz .rol { font-size: 30px; color: var(--t2); height: 56px; display: flex; align-items: center; border-top: 1px solid #262624; }
+  .matriz .celda { height: 56px; display: grid; place-items: center; border-top: 1px solid #262624; }
+  .matriz .celda.sin { background: rgba(217, 89, 38, .08); }
+  .punto { width: 30px; height: 30px; border-radius: 50%; background: var(--persona); }
+  .punto.jefa { background: var(--jefe); width: 38px; height: 38px; }
+  .punto.no { width: 12px; height: 12px; background: var(--vacio); }
+  .leyenda { display: flex; gap: 34px; font-size: 28px; color: var(--t2); align-items: center; flex-wrap: wrap; }
+  .leyenda span { display: inline-flex; align-items: center; gap: 12px; }
+</style>
+</head>
+<body>
+
+<!-- ============ LÁMINA 1: el mismo equipo en tres ministerios ============ -->
+<section class="lamina" id="l1">
+  <div class="antetitulo">CASO REAL, SIN NOMBRES · 1/3</div>
+  <h1>Tres ministerios, el mismo equipo</h1>
+  <p>El <b>ministro B</b> pasó por tres ministerios entre 2023 y 2025. Cada punto es alguien de su equipo designado allí <b>después de él</b>.</p>
+  <div class="matriz" id="matriz"></div>
+  <div class="leyenda"><span><i class="punto"></i> llegó después del jefe</span><span><i class="punto jefa"></i> ahora es la jefa</span></div>
+  <p class="nota">12 de las 20 personas que lo siguieron. Él firmó 19 de esas 20 designaciones.</p>
+</section>
+
+<!-- ============ LÁMINA 2: la velocidad ============ -->
+<section class="lamina" id="l2">
+  <div class="antetitulo">CASO REAL, SIN NOMBRES · 2/3</div>
+  <h1>En 20 días, el equipo ya está</h1>
+  <p>Ministerio 3. El día 0 asume el ministro B. <b>Primero llega el control administrativo.</b></p>
+  <svg id="linea" width="880" height="800" viewBox="0 0 880 800" role="img"
+       aria-label="Línea de tiempo: días después de que asume el ministro en que llega cada cargo de su equipo"></svg>
+  <div class="caja"><p>No es solo este caso: en los <b>168 cambios de ministro</b> de la base, el secretario general cambia a los <b>5 días</b> (mediana).</p></div>
+</section>
+
+<!-- ============ LÁMINA 3: la cadena ============ -->
+<section class="lamina" id="l3">
+  <div class="antetitulo">CASO REAL, SIN NOMBRES · 3/3</div>
+  <h1>El equipo sobrevive al jefe</h1>
+  <p>En 2026 el ministro B ya no está. Su <b>secretaria general</b> asume un programa nacional y, en 16 días, <b>llegan detrás de ella tres personas del mismo núcleo.</b></p>
+  <svg id="cadena" width="880" height="560" viewBox="0 0 880 560" role="img"
+       aria-label="Cadena: el ministro B lleva a su secretaria general, que después lleva a tres personas"></svg>
+  <p>Por eso en la red, junto al punto naranja grande (el ministro), hay <b>otro naranja con sus propias flechas</b>: es una cadena.</p>
+  <div class="caja"><p>Llevar gente de confianza a cargos de confianza es <b>legal y habitual</b>. Lo notable es que <b>el núcleo persiste</b>: tres ministerios y, después, sin él.</p></div>
+</section>
+
+<script>
+  // ---------- Datos del caso (verificados en la base; sin nombres) ----------
+  // Columnas: ministerio 1 (2023), ministerio 2 (2023-2025), ministerio 3 (2025), sin él (2026). 1 = designado/a allí después del jefe; "J" = ahora es la jefa
+  const MATRIZ = [
+    ["Secretaria general", 1, 1, 1, "J"], ["Jefa de gabinete de asesores", 1, 1, 1, 0], ["Asesora del despacho", 1, 1, 1, 0],
+    ["Asesora del despacho", 1, 1, 1, 0], ["Asesor → director general", 1, 1, 1, 0], ["Asesoría jurídica", 0, 1, 1, 1],
+    ["Tecnologías de la información", 0, 1, 1, 1], ["Asesora de secretaría general", 0, 1, 1, 1], ["Jefe de gabinete", 0, 1, 1, 0],
+    ["Administración", 0, 1, 1, 0], ["Comunicaciones", 1, 0, 1, 0], ["Atención al ciudadano", 1, 1, 0, 0],
+  ];
+  // Días después de la designación del ministro en el ministerio 3 (13/05/2025)
+  const LLEGADAS = [[0, "Asume el ministro B", true], [3, "Jefe de gabinete · asesora del despacho"], [4, "Secretaria general"],
+    [8, "Comunicaciones · asesora de secretaría general"], [10, "Tecnologías de la información"], [17, "Asesoría jurídica · administración"],
+    [20, "Dirección general de política"]];
+
+  const NS = "http://www.w3.org/2000/svg";
+  const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  function el(tag, attrs, padre, texto) {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (texto !== undefined) e.textContent = texto;
+    if (padre) padre.appendChild(e);
+    return e;
+  }
+
+  // ---------- Lámina 1: matriz ----------
+  const m = document.getElementById("matriz");
+  const div = (clase, html) => { const d = document.createElement("div"); d.className = clase; d.innerHTML = html; m.appendChild(d); return d; };
+  div("cab", "");
+  ["Min. 1<br>2023", "Min. 2<br>2023-25", "Min. 3<br>2025", "Sin él<br>2026"].forEach((t, i) => div("cab" + (i === 3 ? " sin" : ""), t));
+  MATRIZ.forEach(([rol, ...cols]) => {
+    div("rol", rol);
+    cols.forEach((v, i) => div("celda" + (i === 3 ? " sin" : ""), `<i class="punto${v === "J" ? " jefa" : v ? "" : " no"}"></i>`));
+  });
+
+  // ---------- Lámina 2: línea de tiempo vertical ----------
+  const s = document.getElementById("linea");
+  const y = (dia) => 30 + dia * 37.5, X = 150;
+  el("line", { x1: X, y1: y(0), x2: X, y2: y(20), stroke: css("--t3"), "stroke-width": 3 }, s);
+  [0, 5, 10, 15, 20].forEach((d) => el("text", { x: 0, y: y(d) + 11, "font-size": 30, fill: css("--t3") }, s, `día ${d}`));
+  LLEGADAS.forEach(([dia, texto, jefe]) => {
+    el("circle", { cx: X, cy: y(dia), r: jefe ? 20 : 14, fill: jefe ? css("--jefe") : css("--persona"), stroke: css("--page"), "stroke-width": 4 }, s);
+    el("text", { x: X + 36, y: y(dia) + 12, "font-size": jefe ? 36 : 33, "font-weight": jefe ? 800 : 600, fill: css("--t1") }, s, texto);
+  });
+
+  // ---------- Lámina 3: la cadena ----------
+  const c = document.getElementById("cadena");
+  const defs = el("defs", {}, c);
+  const mk = el("marker", { id: "p", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 22, markerHeight: 22, markerUnits: "userSpaceOnUse", orient: "auto" }, defs);
+  el("path", { d: "M0,0 L10,5 L0,10 z", fill: css("--linea") }, mk);
+  function flecha(a, b) {
+    const dx = b.x - a.x, dy = b.y - a.y, L = Math.hypot(dx, dy), ux = dx / L, uy = dy / L;
+    el("line", { x1: a.x + ux * (a.r + 6), y1: a.y + uy * (a.r + 6), x2: b.x - ux * (b.r + 6), y2: b.y - uy * (b.r + 6),
+      stroke: css("--linea"), "stroke-width": 4, "stroke-linecap": "round", "marker-end": "url(#p)" }, c);
+  }
+  function nodo(p, color, etiqueta, debajo) {
+    el("circle", { cx: p.x, cy: p.y, r: p.r, fill: color, stroke: css("--page"), "stroke-width": 4 }, c);
+    etiqueta.split("\n").forEach((linea, i) => el("text", { x: p.x, y: p.y + (debajo ? p.r + 42 + i * 36 : 12), "text-anchor": "middle",
+      "font-size": debajo ? 30 : 30, "font-weight": 700, fill: debajo ? css("--t1") : "#fff" }, c, linea));
+  }
+  const B = { x: 140, y: 230, r: 84 }, SG = { x: 420, y: 230, r: 52 };
+  const tres = [{ x: 740, y: 70, r: 26 }, { x: 760, y: 230, r: 26 }, { x: 740, y: 390, r: 26 }];
+  // franjas de tiempo
+  el("rect", { x: -10, y: 0, width: 300, height: 470, rx: 18, fill: css("--surface") }, c);
+  el("rect", { x: 560, y: 0, width: 330, height: 470, rx: 18, fill: "rgba(217,89,38,.08)" }, c);
+  el("text", { x: 155, y: 520, "text-anchor": "middle", "font-size": 30, fill: css("--t2") }, c, "2023-2025: lo siguen a él");
+  el("text", { x: 725, y: 520, "text-anchor": "middle", "font-size": 30, fill: css("--t2") }, c, "2026: la siguen a ella");
+  flecha(B, SG); tres.forEach((t) => flecha(SG, t));
+  nodo(B, css("--jefe"), "Ministro B", false);
+  nodo(SG, css("--jefe"), "SG", false);
+  el("text", { x: SG.x, y: SG.y + SG.r + 40, "text-anchor": "middle", "font-size": 28, fill: css("--t2") }, c, "secretaria general");
+  [["Jurídica"], ["Tecnología"], ["Asesora"]].forEach(([t], i) => {
+    el("circle", { cx: tres[i].x, cy: tres[i].y, r: tres[i].r, fill: css("--persona"), stroke: css("--page"), "stroke-width": 4 }, c);
+    el("text", { x: tres[i].x, y: tres[i].y + tres[i].r + 34, "text-anchor": "middle", "font-size": 28, fill: css("--t1"), "font-weight": 600 }, c, t);
+  });
+</script>
+</body>
+</html>

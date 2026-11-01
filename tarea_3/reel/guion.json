@@ -1,0 +1,107 @@
+{
+  "titulo": "¿Cambia todo para que nada cambie? Designaciones en el Estado peruano, 2022-2026",
+  "version": "final: versión corta elegida por el autor (narración grabada; texto transcrito con Whisper)",
+  "duracion_segundos": 79.1,
+  "formato": "vertical 9:16, 1080 x 1920, 30 cuadros por segundo",
+  "narracion": "voz propia del autor, grabada (sin clonación ni voz sintética); ver README, sección 8",
+  "fuente_principal": "Diario Oficial El Peruano: normas de designación, conclusión y renuncia (nov-2022 a oct-2026)",
+  "edicion_del_audio": "Solo se recortaron frases completas entre pausas naturales: 'Una alarma para cualquier área de recursos humanos' (pasa a la pantalla), 'Como se puede ver' y 'Se intentó representar esta dinámica a través de grafos en vista que el sistema de referencias es el más usado...' (la idea queda en pantalla con el triángulo A-B-C). Pausas largas acortadas a 0,4 s y voz 8 % más rápida sin cambiar el tono. Ver reel/02_editar_audio.py",
+  "escenas": [
+    {
+      "n": 1,
+      "escena": "gancho",
+      "inicio_s": 0.0,
+      "fin_s": 7.4,
+      "narracion": "¿Alguna vez te has fijado que casi todos los días El Peruano publica cambios de funcionarios de confianza?",
+      "visual": "Calendario de 4 años: cada día se enciende si hubo designaciones (99 de cada 100 días)"
+    },
+    {
+      "n": 2,
+      "escena": "qué revisamos",
+      "inicio_s": 7.4,
+      "fin_s": 14.2,
+      "narracion": "Revisamos 27.000 normas de noviembre de 2022 a octubre de 2026 con 5 presidentes.",
+      "visual": "Contador hasta 27.183 normas y los cinco gobiernos en una línea de tiempo"
+    },
+    {
+      "n": 3,
+      "escena": "hallazgo: el mismo elenco",
+      "inicio_s": 14.2,
+      "fin_s": 24.7,
+      "narracion": "Cambia el gobierno, pero no el elenco. La mitad de quienes designó el último gobierno ya estaban en el Estado. Cambian de puesto, sí, pero se quedan.",
+      "visual": "50 % en grande; 100 puntos, la mitad 'ya estaban'; los puntos se reacomodan: cambian de puesto, pero se quedan"
+    },
+    {
+      "n": 4,
+      "escena": "hallazgo: olas",
+      "inicio_s": 24.7,
+      "fin_s": 29.3,
+      "narracion": "Los cambios llegan en olas, con cada presidente o ministro nuevo.",
+      "visual": "Serie mensual de designaciones con los picos (mar-2023, ago-2026) y los cambios de gobierno"
+    },
+    {
+      "n": 5,
+      "escena": "hallazgo: control administrativo",
+      "inicio_s": 29.3,
+      "fin_s": 37.8,
+      "narracion": "Y lo primero que asegura un ministro es el control administrativo. El secretario general cambia en cinco días.",
+      "visual": "Barras de días hasta el cambio de cada cargo; secretaría general: 5 días"
+    },
+    {
+      "n": 6,
+      "escena": "hallazgo: rotación",
+      "inicio_s": 37.8,
+      "fin_s": 41.5,
+      "narracion": "Hay puestos con hasta 15 jefes en cuatro años.",
+      "visual": "Un mismo puesto con 15 jefes en 4 años; en pantalla: 'Una alarma para recursos humanos'"
+    },
+    {
+      "n": 7,
+      "escena": "hallazgo: rotación y permanencia",
+      "inicio_s": 41.5,
+      "fin_s": 48.4,
+      "narracion": "Unos pasan por seis cargos en un año, otros ven pasar 14 ministros sin moverse.",
+      "visual": "Quien más rota (8 cargos, 6 en un año) frente a quien vio pasar 14 ministros sin moverse"
+    },
+    {
+      "n": 8,
+      "escena": "hallazgo: detrás de cada designación",
+      "inicio_s": 48.4,
+      "fin_s": 53.4,
+      "narracion": "Un hallazgo interesante es que las designaciones permiten identificar los grupos de",
+      "visual": "Triángulo A-B-C: A recomienda, B firma la designación de C; en pantalla: 'Detrás suele haber referencias'"
+    },
+    {
+      "n": 9,
+      "escena": "hallazgo: grupos que se desplazan juntos",
+      "inicio_s": 53.4,
+      "fin_s": 59.3,
+      "narracion": "profesionales o algunos grupos de profesionales que se desplazan juntos.",
+      "visual": "Red de seguimiento completa (sin nombres); 1 de cada 6 sigue a su jefe, por azar 1 de cada 50"
+    },
+    {
+      "n": 10,
+      "escena": "paridad",
+      "inicio_s": 59.3,
+      "fin_s": 65.1,
+      "narracion": "Otro hallazgo interesante es que cuanto más alto el cargo, hay menos mujeres.",
+      "visual": "Mujeres por nivel del cargo: ministras 26 %, asesoras 46 %"
+    },
+    {
+      "n": 11,
+      "escena": "cierre",
+      "inicio_s": 65.1,
+      "fin_s": 79.1,
+      "narracion": "Los nombres están anonimizados. Por ahora solamente estamos buscando estructuras y patrones que permitan entender mejor la dinámica de la gestión pública peruana.",
+      "visual": "Códigos anónimos; el dashboard y su enlace; créditos"
+    }
+  ],
+  "creditos_en_pantalla": [
+    "Datos: Diario Oficial El Peruano, noviembre de 2022 a octubre de 2026",
+    "Análisis y dashboard: Tarea 3 · Python Intermedio (D2CML)",
+    "Narración: voz propia del autor (no generada con IA)",
+    "Música: «Clean Soul», Kevin MacLeod (incompetech.com) · CC BY 4.0",
+    "Guion del autor; edición y gráficos con apoyo de IA (Claude)",
+    "Personas con códigos anónimos: los patrones no implican irregularidades"
+  ]
+}

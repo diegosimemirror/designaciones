@@ -1,0 +1,6 @@
+# Paquetes de Python del proyecto (probados con las versiones indicadas)
+pandas>=2.2          # tablas: lectura, limpieza y análisis (probado con 3.0.3)
+requests>=2.31       # descarga del índice, el listado general y los PDF de El Peruano (probado con 2.34.2)
+beautifulsoup4>=4.12 # lectura del HTML del listado general de normas (probado con 4.15.0)
+pymupdf>=1.24        # extracción del texto de los PDF oficiales y del ROF
+tabulate>=0.9        # tablas en Markdown para los informes de docs/ (probado con 0.10.0)
