@@ -1,6 +1,8 @@
-# Entrega: publicación de LinkedIn y comentario en el issue
+# Entrega: comentario en el issue
 
-## Publicación de LinkedIn (borrador)
+El autor decidió no publicar en LinkedIn. El borrador se conserva abajo como referencia (no se usó).
+
+## Publicación de LinkedIn (borrador no usado)
 
 Adjuntar: el reel (`reel/reel.mp4`) y al menos 2 capturas del dashboard (sugeridas: `reel/capturas/red_seguimiento_dashboard.png`
 y `reel/capturas/ranking_rotacion_dashboard.png`).
@@ -42,5 +44,5 @@ y `reel/capturas/ranking_rotacion_dashboard.png`).
 
 **Dashboard público:** https://diegosimemirror.github.io/designaciones/tarea_3/web/
 
-**Publicación de LinkedIn:** [enlace]
+**Publicación de LinkedIn:** no se publicó (decisión del autor). El reel está en el repositorio: https://github.com/diegosimemirror/designaciones/blob/main/tarea_3/reel/reel.mp4
 ```

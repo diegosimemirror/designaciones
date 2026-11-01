@@ -1,7 +1,7 @@
 # Designaciones de El Peruano: ¿cambia todo para que no cambie nada?
 
 > Tarea 3 del curso Python Intermedio (D2CML) — *Del dato a la historia: dashboard interactivo y reel con IA*.
-> **Estado: en construcción.** Las secciones marcadas como *pendiente* se completan al cerrar el análisis.
+> **Dashboard público:** https://diegosimemirror.github.io/designaciones/tarea_3/web/
 
 ## 1. Tema y pregunta de investigación
 
@@ -88,9 +88,9 @@ los ministros y el 46 % de los asesores. Son resultados de esta versión de la b
 
 ## 6. Enlaces
 
-- Dashboard: *pendiente de publicar* (código en [`web/`](web/))
-- Publicación de LinkedIn: *pendiente*
-- Reel (75 s, 9:16): [`reel/reel.mp4`](reel/reel.mp4) · guion: [`reel/guion.json`](reel/guion.json) · subtítulos: [`reel/subtitulos.srt`](reel/subtitulos.srt)
+- Dashboard: https://diegosimemirror.github.io/designaciones/tarea_3/web/ (código en [`web/`](web/))
+- Publicación de LinkedIn: no se publicó (decisión del autor); el reel queda en este repositorio
+- Reel (79 s, 9:16): [`reel/reel.mp4`](reel/reel.mp4) · guion: [`reel/guion.json`](reel/guion.json) · subtítulos: [`reel/subtitulos.srt`](reel/subtitulos.srt)
 
 ## 7. Cómo reproducir el proyecto
 
